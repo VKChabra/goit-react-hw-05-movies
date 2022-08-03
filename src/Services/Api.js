@@ -1,4 +1,10 @@
-const exampleFetch =
-  'https://api.themoviedb.org/3/movie/550?api_key=16b99e0971797b79067f0be2bdb79de1';
+import api_key from './ApiKey';
 
-export default exampleFetch;
+const fetchFilm = filmId => {
+  try {
+    fetch(`https://api.themoviedb.org/3/movie/${filmId}?api_key=${api_key}`);
+  } catch (error) {
+    console.log(error);
+  }
+};
+export default fetchFilm;
