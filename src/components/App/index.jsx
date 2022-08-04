@@ -1,5 +1,5 @@
 import { lazy, Suspense } from 'react';
-import { Routes, Route, useNavigate } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 
 const Navbar = lazy(() =>
   import('components/Navbar' /* webpackChunkName: "Navbar" */)
@@ -15,18 +15,15 @@ const Movie = lazy(() =>
 );
 
 export const App = () => {
-  const navigate = useNavigate();
-  const handleViewFilm = filmId => {
-    navigate(`/movies/${filmId}`);
-  };
   return (
     <div className="App">
       <Navbar />
       <Suspense fallback={<p>Loading...</p>}>
         <Routes>
-          <Route path="/" element={<Trending onView={handleViewFilm} />} />
+          <Route path="/" element={<Trending />} />
           <Route path="/movies" element={<MoviesList />} />
           <Route path="/movies/:filmId" element={<Movie />} />
+          <Route path="*" element={<h1>Nothing here</h1>} />
         </Routes>
       </Suspense>
     </div>

@@ -1,7 +1,10 @@
 import Search from 'components/Search';
-import Movie from 'components/Movie';
+// import Movie from 'components/Movie';
+import { Link, useLocation } from 'react-router-dom';
+// import { fetchFilmDetails } from 'services/Api.js';
 
-const MoviesList = () => {
+const MoviesList = ({ films }) => {
+  const location = useLocation();
   const searchFilm = event => {
     event.preventDefault();
     console.log(event);
@@ -9,9 +12,14 @@ const MoviesList = () => {
   };
   return (
     <div>
-      <Search searchFilm={searchFilm} />
+      {location.pathname === '/movies' && <Search searchFilm={searchFilm} />}
       <ul className="moviesList">
-        <Movie />
+        {films &&
+          films.map(({ id, title }) => (
+            <Link key={id} to={`/movies/${id}`}>
+              {title}
+            </Link>
+          ))}
       </ul>
     </div>
   );
