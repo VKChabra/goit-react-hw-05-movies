@@ -11,17 +11,19 @@ const MoviesList = ({ films }) => {
     // console.log(event.target.value.toLowerCase());
   };
   return (
-    <div>
+    <>
       {location.pathname === '/movies' && <Search searchFilm={searchFilm} />}
       <ul className="moviesList">
         {films &&
           films.map(({ id, title }) => (
-            <Link key={id} to={`/movies/${id}`}>
-              {title}
-            </Link>
+            <li>
+              <Link key={id} to={`/movies/${id}`}>
+                {title}
+              </Link>
+            </li>
           ))}
       </ul>
-    </div>
+    </>
   );
 };
 

@@ -8,7 +8,6 @@ const Trending = () => {
     async function fetchData() {
       try {
         const { results } = await fetchTrendingMovies();
-        // console.log(results);
         if (results.length === 0) {
           return 'No results';
         } else {

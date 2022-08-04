@@ -1,5 +1,6 @@
 import { lazy, Suspense } from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
+import Loader from 'components/Loader';
 
 const Navbar = lazy(() =>
   import('components/Navbar' /* webpackChunkName: "Navbar" */)
@@ -18,12 +19,12 @@ export const App = () => {
   return (
     <div className="App">
       <Navbar />
-      <Suspense fallback={<p>Loading...</p>}>
+      <Suspense fallback={<Loader />}>
         <Routes>
           <Route path="/" element={<Trending />} />
           <Route path="/movies" element={<MoviesList />} />
           <Route path="/movies/:filmId" element={<Movie />} />
-          <Route path="*" element={<h1>Nothing here</h1>} />
+          <Route path="*" element={<Navigate to="/" />} />
         </Routes>
       </Suspense>
     </div>
