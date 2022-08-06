@@ -8,6 +8,9 @@ const Navbar = lazy(() =>
 const Trending = lazy(() =>
   import('components/Trending' /* webpackChunkName: "Trending" */)
 );
+const Search = lazy(() =>
+  import('components/Search' /* webpackChunkName: "Search" */)
+);
 const MoviesList = lazy(() =>
   import('components/MoviesList' /* webpackChunkName: "MoviesList" */)
 );
@@ -15,10 +18,10 @@ const Movie = lazy(() =>
   import('components/Movie' /* webpackChunkName: "Movie" */)
 );
 const Cast = lazy(() =>
-  import('components/Movie/Cast' /* webpackChunkName: "Movie" */)
+  import('components/Movie/Cast' /* webpackChunkName: "Cast" */)
 );
 const Reviews = lazy(() =>
-  import('components/Movie/Reviews' /* webpackChunkName: "Movie" */)
+  import('components/Movie/Reviews' /* webpackChunkName: "Reviews" */)
 );
 
 export const App = () => {
@@ -28,6 +31,7 @@ export const App = () => {
       <Suspense fallback={<Loader />}>
         <Routes>
           <Route path="/" element={<Trending />} />
+          <Route path="/movies" element={<Search />} />
           <Route path="/movies" element={<MoviesList />}>
             <Route path=":filmId/*" element={<Movie />}>
               <Route path="cast" element={<Cast />} />

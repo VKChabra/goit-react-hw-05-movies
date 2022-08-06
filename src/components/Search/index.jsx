@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { searchFilm } from 'services/Api.js';
+import MoviesList from 'components/MoviesList';
 
 const Search = () => {
   const [searchQuery, setSearchQuery] = useState(null);
@@ -8,12 +9,11 @@ const Search = () => {
   const query = searchParams.get('query');
 
   useEffect(() => {
-    // !!!if (query) return;
+    if (!query) return;
 
     async function fetchFilmOnQuery() {
-      const response = await searchFilm(query);
-      console.log(response);
-      setSearchQuery(response);
+      const { results } = await searchFilm(query);
+      setSearchQuery(results);
     }
 
     fetchFilmOnQuery();
@@ -32,7 +32,7 @@ const Search = () => {
         <input type="text" name="searchQuery" />
       </label>
       <button type="submit">Search</button>
-      {searchQuery && <div>Got me</div>}
+      {query && <MoviesList films={searchQuery} />}
     </form>
   );
 };

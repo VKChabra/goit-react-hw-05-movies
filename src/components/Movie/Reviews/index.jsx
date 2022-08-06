@@ -23,6 +23,9 @@ const Cast = () => {
             {content}
           </li>
         ))}
+      {response && !results.length && (
+        <div>Sorry but there are no reviews yet</div>
+      )}
     </>
   );
 };
