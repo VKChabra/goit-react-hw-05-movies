@@ -14,6 +14,12 @@ const MoviesList = lazy(() =>
 const Movie = lazy(() =>
   import('components/Movie' /* webpackChunkName: "Movie" */)
 );
+const Cast = lazy(() =>
+  import('components/Movie/Cast' /* webpackChunkName: "Movie" */)
+);
+const Reviews = lazy(() =>
+  import('components/Movie/Reviews' /* webpackChunkName: "Movie" */)
+);
 
 export const App = () => {
   return (
@@ -22,8 +28,12 @@ export const App = () => {
       <Suspense fallback={<Loader />}>
         <Routes>
           <Route path="/" element={<Trending />} />
-          <Route path="/movies" element={<MoviesList />} />
-          <Route path="/movies/:filmId" element={<Movie />} />
+          <Route path="/movies" element={<MoviesList />}>
+            <Route path=":filmId/*" element={<Movie />}>
+              <Route path="cast" element={<Cast />} />
+              <Route path="reviews" element={<Reviews />} />
+            </Route>
+          </Route>
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
       </Suspense>

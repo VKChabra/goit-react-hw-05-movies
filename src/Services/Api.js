@@ -14,7 +14,7 @@ export const fetchTrendingMovies = async () => {
   }
 };
 
-export const searchFilm = async (filmId, query) => {
+export const searchFilm = async query => {
   try {
     return await fetch(
       `https://api.themoviedb.org/3/search/movie?api_key=${api_key}&query=${query}`
@@ -32,6 +32,34 @@ export const fetchFilmDetails = async filmId => {
   try {
     return await fetch(
       `https://api.themoviedb.org/3/movie/${filmId}?api_key=${api_key}`
+    ).then(response => {
+      if (response.ok === true) {
+        return response.json();
+      }
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const fetchFilmCast = async filmId => {
+  try {
+    return await fetch(
+      `https://api.themoviedb.org/3/movie/${filmId}/credits?api_key=${api_key}`
+    ).then(response => {
+      if (response.ok === true) {
+        return response.json();
+      }
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const fetchFilmReviews = async filmId => {
+  try {
+    return await fetch(
+      `https://api.themoviedb.org/3/movie/${filmId}/reviews?api_key=${api_key}`
     ).then(response => {
       if (response.ok === true) {
         return response.json();

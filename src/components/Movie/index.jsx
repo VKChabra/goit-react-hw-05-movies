@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link, Outlet } from 'react-router-dom';
 import { fetchFilmDetails } from 'services/Api.js';
 import Loader from 'components/Loader';
 
@@ -15,9 +15,10 @@ const Movie = () => {
 
   const { title, genres, overview, poster_path, release_date, vote_average } =
     response;
+  const responseTrue = response !== '';
   return (
     <>
-      {response === '' && <Loader />}
+      {!responseTrue && <Loader />}
       <img
         src={
           poster_path
@@ -32,8 +33,12 @@ const Movie = () => {
       <div>User score: {vote_average}%</div>
       <div>Overview: {overview}</div>
       <div>
-        Genres: {response !== '' && genres.map(genre => genre.name).join(', ')}
+        Genres: {responseTrue && genres.map(genre => genre.name).join(', ')}
       </div>
+      <div className="moreInfo">
+        <Link to="cast">Cast</Link> <Link to="reviews">Reviews</Link>
+      </div>
+      <Outlet />
     </>
   );
 };

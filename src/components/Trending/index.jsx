@@ -8,11 +8,7 @@ const Trending = () => {
     async function fetchData() {
       try {
         const { results } = await fetchTrendingMovies();
-        if (results.length === 0) {
-          return 'No results';
-        } else {
-          setFilms(results);
-        }
+        setFilms(results);
       } catch (error) {
         console.log(error);
       }

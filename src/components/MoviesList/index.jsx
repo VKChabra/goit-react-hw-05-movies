@@ -1,7 +1,5 @@
 import Search from 'components/Search';
-// import Movie from 'components/Movie';
-import { Link, useLocation } from 'react-router-dom';
-// import { fetchFilmDetails } from 'services/Api.js';
+import { Link, useLocation, Outlet } from 'react-router-dom';
 
 const MoviesList = ({ films }) => {
   const location = useLocation();
@@ -16,12 +14,11 @@ const MoviesList = ({ films }) => {
       <ul className="moviesList">
         {films &&
           films.map(({ id, title }) => (
-            <li>
-              <Link key={id} to={`/movies/${id}`}>
-                {title}
-              </Link>
+            <li key={id}>
+              <Link to={`/movies/${id}`}>{title}</Link>
             </li>
           ))}
+        <Outlet />
       </ul>
     </>
   );
