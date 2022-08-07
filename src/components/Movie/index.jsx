@@ -6,7 +6,7 @@ import {
   useLocation,
   useNavigate,
 } from 'react-router-dom';
-import { fetchFilmDetails } from 'services/Api.js';
+import { fetchFilmDetails } from 'services/api';
 import Loader from 'components/Loader';
 
 const Movie = () => {

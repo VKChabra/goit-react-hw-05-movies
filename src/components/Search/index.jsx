@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { searchFilm } from 'services/Api.js';
+import { searchFilm } from 'services/api';
 import MoviesList from 'components/MoviesList';
 
 const Search = () => {
