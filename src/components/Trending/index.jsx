@@ -6,15 +6,10 @@ import styles from './trending.module.css';
 const Trending = () => {
   const [movies, setMovies] = useState([]);
   useEffect(() => {
-    async function fetchData() {
-      try {
-        const { results } = await fetchTrendingMovies();
-        setMovies(results);
-      } catch (error) {
-        console.log(error);
-      }
-    }
-    fetchData();
+    (async () => {
+      const { results } = await fetchTrendingMovies();
+      setMovies(results);
+    })();
   }, []);
 
   return (

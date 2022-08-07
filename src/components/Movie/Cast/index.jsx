@@ -4,19 +4,18 @@ import { useParams } from 'react-router-dom';
 import styles from './cast.module.css';
 
 const Cast = () => {
-  const [response, setResponse] = useState('');
+  const [cast, setCast] = useState('');
   let params = useParams();
   useEffect(() => {
-    async function setCast() {
-      setResponse(await fetchMovieCast(params.movieId));
-    }
-    setCast();
+    (async () => {
+      const { cast } = await fetchMovieCast(params.movieId);
+      setCast(cast);
+    })();
   }, [params.movieId]);
 
-  const { cast } = response;
   return (
     <>
-      {response && (
+      {cast && (
         <ul className={styles.castList}>
           {cast.map(({ id, name, profile_path, character }) => (
             <li key={id} className={styles.castItem}>

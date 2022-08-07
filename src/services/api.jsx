@@ -1,71 +1,55 @@
-import api_key from './apiKey';
+import axios from 'axios';
+import API_KEY from './apiKey';
 
-export const fetchTrendingMovies = async () => {
+axios.defaults.baseURL = 'https://api.themoviedb.org/3';
+
+export async function fetchTrendingMovies() {
   try {
-    return await fetch(
-      `https://api.themoviedb.org/3/trending/movie/day?api_key=${api_key}`
-    ).then(response => {
-      if (response.ok === true) {
-        return response.json();
-      }
-    });
+    const response = await axios.get(`/trending/movie/day?api_key=${API_KEY}`);
+    return response.data;
   } catch (error) {
     console.log(error);
   }
-};
+}
 
-export const searchMovie = async query => {
+export async function searchMovie(query) {
   try {
-    return await fetch(
-      `https://api.themoviedb.org/3/search/movie?api_key=${api_key}&query=${query}`
-    ).then(response => {
-      if (response.ok === true) {
-        return response.json();
-      }
-    });
+    const response = await axios.get(
+      `/search/movie?api_key=${API_KEY}&query=${query}`
+    );
+    return response.data;
   } catch (error) {
     console.log(error);
   }
-};
+}
 
-export const fetchMovieDetails = async movieId => {
+export async function fetchMovieDetails(movieId) {
   try {
-    return await fetch(
-      `https://api.themoviedb.org/3/movie/${movieId}?api_key=${api_key}`
-    ).then(response => {
-      if (response.ok === true) {
-        return response.json();
-      }
-    });
+    const response = await axios.get(`/movie/${movieId}?api_key=${API_KEY}`);
+    return response.data;
   } catch (error) {
     console.log(error);
   }
-};
+}
 
-export const fetchMovieCast = async movieId => {
+export async function fetchMovieCast(movieId) {
   try {
-    return await fetch(
-      `https://api.themoviedb.org/3/movie/${movieId}/credits?api_key=${api_key}`
-    ).then(response => {
-      if (response.ok === true) {
-        return response.json();
-      }
-    });
+    const response = await axios.get(
+      `/movie/${movieId}/credits?api_key=${API_KEY}`
+    );
+    return response.data;
   } catch (error) {
     console.log(error);
   }
-};
+}
 
-export const fetchMovieReviews = async movieId => {
+export async function fetchMovieReviews(movieId) {
   try {
-    return await fetch(
-      `https://api.themoviedb.org/3/movie/${movieId}/reviews?api_key=${api_key}`
-    ).then(response => {
-      if (response.ok === true) {
-        return response.json();
-      }
-    });
+    const response = await axios.get(
+      `/movie/${movieId}/reviews?api_key=${API_KEY}`
+    );
+    return response.data;
   } catch (error) {
     console.log(error);
   }
-};
+}

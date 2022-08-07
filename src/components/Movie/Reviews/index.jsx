@@ -7,18 +7,17 @@ const Reviews = () => {
   const [reviews, setReviews] = useState('');
   let params = useParams();
   useEffect(() => {
-    async function fetchReviews() {
-      setReviews(await fetchMovieReviews(params.movieId));
-    }
-    fetchReviews();
+    (async () => {
+      const { results } = await fetchMovieReviews(params.movieId);
+      setReviews(results);
+    })();
   }, [params.movieId]);
 
-  const { results } = reviews;
   return (
     <>
       {reviews && (
         <ul className={styles.reviewsList}>
-          {results.map(({ id, author, content }) => (
+          {reviews.map(({ id, author, content }) => (
             <li key={id} className={styles.reviewsItem}>
               <div className={styles.author}>Author: {author}</div>
               {content}
@@ -26,9 +25,7 @@ const Reviews = () => {
           ))}
         </ul>
       )}
-      {reviews?.results?.length === 0 && (
-        <div>Sorry but there are no reviews yet</div>
-      )}
+      {reviews?.length === 0 && <div>Sorry but there are no reviews yet</div>}
     </>
   );
 };
