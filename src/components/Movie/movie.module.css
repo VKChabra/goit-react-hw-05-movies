@@ -1,0 +1,18 @@
+.backBtn {
+  margin-bottom: 10px;
+}
+
+.info {
+  display: flex;
+  padding: 10px 0;
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+}
+
+.textInfo {
+  margin-left: 20px;
+}
+
+.wrapper {
+  margin-top: 20px;
+}

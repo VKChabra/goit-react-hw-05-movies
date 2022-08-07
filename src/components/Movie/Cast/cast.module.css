@@ -1,3 +1,13 @@
-.cast {
+.castList {
+  padding-left: 0;
   list-style: none;
+}
+
+.castItem {
+  margin-bottom: 10px;
+}
+
+.name,
+.character {
+  margin-top: 5px;
 }

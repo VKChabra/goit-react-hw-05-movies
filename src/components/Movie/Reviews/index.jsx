@@ -4,26 +4,29 @@ import { useParams } from 'react-router-dom';
 import styles from './reviews.module.css';
 
 const Reviews = () => {
-  const [response, setResponse] = useState('');
+  const [reviews, setReviews] = useState('');
   let params = useParams();
   useEffect(() => {
-    async function setReviews() {
-      setResponse(await fetchMovieReviews(params.movieId));
+    async function fetchReviews() {
+      setReviews(await fetchMovieReviews(params.movieId));
     }
-    setReviews();
+    fetchReviews();
   }, [params.movieId]);
 
-  const { results } = response;
+  const { results } = reviews;
   return (
     <>
-      {response &&
-        results.map(({ id, author, content }) => (
-          <li key={id}>
-            <div className={styles.author}>Author: {author}</div>
-            {content}
-          </li>
-        ))}
-      {response?.results?.length === 0 && (
+      {reviews && (
+        <ul className={styles.reviewsList}>
+          {results.map(({ id, author, content }) => (
+            <li key={id} className={styles.reviewsItem}>
+              <div className={styles.author}>Author: {author}</div>
+              {content}
+            </li>
+          ))}
+        </ul>
+      )}
+      {reviews?.results?.length === 0 && (
         <div>Sorry but there are no reviews yet</div>
       )}
     </>

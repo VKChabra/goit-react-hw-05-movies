@@ -8,6 +8,8 @@ import {
 } from 'react-router-dom';
 import { fetchMovieDetails } from 'services/api';
 import Loader from 'components/Loader';
+import main from 'globalStyles/main.module.css';
+import styles from './movie.module.css';
 
 const Movie = () => {
   let params = useParams();
@@ -31,12 +33,12 @@ const Movie = () => {
   const movieInfoTrue = movieInfo !== '';
 
   return (
-    <>
+    <div className={main.main}>
       {!movieInfoTrue && <Loader />}
-      <button type="button" onClick={onBackBtn}>
+      <button type="button" onClick={onBackBtn} className={styles.backBtn}>
         Go back
       </button>
-      <div>
+      <div className={styles.info}>
         <img
           src={
             poster_path
@@ -45,26 +47,36 @@ const Movie = () => {
           }
           alt={title}
         />
-        <div>
-          {title}({new Date(release_date).getFullYear()})
-        </div>
-        <div>User score: {vote_average}%</div>
-        <div>Overview: {overview}</div>
-        <div>
-          Genres: {movieInfoTrue && genres.map(genre => genre.name).join(', ')}
-        </div>
-        <div className="moreInfo">
-          <div>Additional information:</div>
-          <Link to="cast" state={location.state}>
-            Cast
-          </Link>{' '}
-          <Link to="reviews" state={location.state}>
-            Reviews
-          </Link>
+        <div className={styles.textInfo}>
+          <h1 className={styles.title}>
+            {title}({new Date(release_date).getFullYear()})
+          </h1>
+          <div className={styles.wrapper}>
+            User score: {Math.floor(vote_average * 10)}%
+          </div>
+          <div className={styles.wrapper}>
+            <h2>Overview:</h2>
+            <div className={styles.wrapper}>{overview}</div>
+          </div>
+          <div className={styles.wrapper}>
+            <h2>Genres:</h2>
+            <div className={styles.wrapper}>
+              {movieInfoTrue && genres.map(genre => genre.name).join(', ')}
+            </div>
+          </div>
         </div>
       </div>
+      <div className="moreInfo">
+        <div className={styles.wrapper}>Additional information:</div>
+        <Link to="cast" state={location.state}>
+          Cast
+        </Link>{' '}
+        <Link to="reviews" state={location.state}>
+          Reviews
+        </Link>
+      </div>
       <Outlet />
-    </>
+    </div>
   );
 };
 

@@ -3,6 +3,8 @@ import { useSearchParams } from 'react-router-dom';
 import { searchMovie } from 'services/api';
 import MoviesList from 'components/MoviesList';
 import Loader from 'components/Loader';
+import main from 'globalStyles/main.module.css';
+import styles from './search.module.css';
 
 const Search = () => {
   const [searchQuery, setSearchQuery] = useState(null);
@@ -32,14 +34,14 @@ const Search = () => {
 
   return (
     <>
-      <form className="searchMovieForm" onSubmit={handleSubmit}>
-        <label>
+      <form className={main.main} onSubmit={handleSubmit}>
+        <label className={styles.label}>
           <input type="text" name="searchQuery" />
         </label>
         <button type="submit">Search</button>
-        {query && !loading && <MoviesList movies={searchQuery} />}
       </form>
       {loading && <Loader />}
+      {query && !loading && <MoviesList movies={searchQuery} />}
     </>
   );
 };

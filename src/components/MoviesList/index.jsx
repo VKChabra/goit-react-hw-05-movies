@@ -1,12 +1,13 @@
 import { Link, Outlet, useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import main from 'globalStyles/main.module.css';
 
 const MoviesList = ({ movies }) => {
   const location = useLocation();
   return (
     <>
       {movies && (
-        <ul className="moviesList">
+        <ul>
           {movies.map(({ id, title }) => (
             <li key={id}>
               <Link
@@ -22,9 +23,11 @@ const MoviesList = ({ movies }) => {
         </ul>
       )}
       <Outlet />
-      {movies?.length === 0 && location.search !== '?query=' && (
-        <div>Sorry, there are no results</div>
-      )}
+      {movies?.length === 0 &&
+        location.search !== '?query=' &&
+        location.pathname === '/movies' && (
+          <div className={main.main}>Sorry, there are no results</div>
+        )}
     </>
   );
 };
