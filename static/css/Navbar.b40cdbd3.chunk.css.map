@@ -1,0 +1,1 @@
+{"version":3,"file":"static/css/Navbar.b40cdbd3.chunk.css","mappings":"AAAA,QACE,YACF","sources":["components/Navbar/active.css"],"sourcesContent":[".active {\n  color: orange;\n}\n"],"names":[],"sourceRoot":""}

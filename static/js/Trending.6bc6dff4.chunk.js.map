@@ -1,1 +1,0 @@
-{"version":3,"file":"static/js/Trending.6bc6dff4.chunk.js","mappings":"yJAIA,UAJiB,WACf,OAAO,uCACR,C","sources":["components/Trending/index.jsx"],"sourcesContent":["const Trending = () => {\n  return <h1>Hello world</h1>;\n};\n\nexport default Trending;\n"],"names":[],"sourceRoot":""}
