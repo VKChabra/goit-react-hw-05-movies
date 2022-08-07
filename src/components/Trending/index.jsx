@@ -3,12 +3,12 @@ import { useEffect, useState } from 'react';
 import MoviesList from 'components/MoviesList';
 
 const Trending = () => {
-  const [films, setFilms] = useState([]);
+  const [movies, setMovies] = useState([]);
   useEffect(() => {
     async function fetchData() {
       try {
         const { results } = await fetchTrendingMovies();
-        setFilms(results);
+        setMovies(results);
       } catch (error) {
         console.log(error);
       }
@@ -16,7 +16,7 @@ const Trending = () => {
     fetchData();
   }, []);
 
-  return <MoviesList films={films} />;
+  return <MoviesList movies={movies} />;
 };
 
 export default Trending;

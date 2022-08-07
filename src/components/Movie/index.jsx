@@ -6,33 +6,34 @@ import {
   useLocation,
   useNavigate,
 } from 'react-router-dom';
-import { fetchFilmDetails } from 'services/api';
+import { fetchMovieDetails } from 'services/api';
 import Loader from 'components/Loader';
 
 const Movie = () => {
   let params = useParams();
-  const [response, setResponse] = useState('');
+  const [movieInfo, setMovieInfo] = useState('');
   const location = useLocation();
   const navigate = useNavigate();
 
-  const onGoBack = () => {
+  useEffect(() => {
+    async function setDetails() {
+      setMovieInfo(await fetchMovieDetails(params.movieId));
+    }
+    setDetails();
+  }, [params.movieId]);
+
+  const onBackBtn = () => {
     navigate(location?.state?.from ?? '/');
   };
 
-  useEffect(() => {
-    async function setDetails() {
-      setResponse(await fetchFilmDetails(params.filmId));
-    }
-    setDetails();
-  }, [params.filmId]);
-
   const { title, genres, overview, poster_path, release_date, vote_average } =
-    response;
-  const responseTrue = response !== '';
+    movieInfo;
+  const movieInfoTrue = movieInfo !== '';
+
   return (
     <>
-      {!responseTrue && <Loader />}
-      <button type="button" onClick={onGoBack}>
+      {!movieInfoTrue && <Loader />}
+      <button type="button" onClick={onBackBtn}>
         Go back
       </button>
       <div>
@@ -45,14 +46,15 @@ const Movie = () => {
           alt={title}
         />
         <div>
-          {title}({release_date})
+          {title}({new Date(release_date).getFullYear()})
         </div>
         <div>User score: {vote_average}%</div>
         <div>Overview: {overview}</div>
         <div>
-          Genres: {responseTrue && genres.map(genre => genre.name).join(', ')}
+          Genres: {movieInfoTrue && genres.map(genre => genre.name).join(', ')}
         </div>
         <div className="moreInfo">
+          <div>Additional information:</div>
           <Link to="cast" state={location.state}>
             Cast
           </Link>{' '}

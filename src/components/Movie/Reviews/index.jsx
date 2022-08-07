@@ -1,17 +1,17 @@
-import { fetchFilmReviews } from 'services/api';
+import { fetchMovieReviews } from 'services/api';
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import styles from './reviews.module.css';
 
-const Cast = () => {
+const Reviews = () => {
   const [response, setResponse] = useState('');
   let params = useParams();
   useEffect(() => {
-    async function setCast() {
-      setResponse(await fetchFilmReviews(params.filmId));
+    async function setReviews() {
+      setResponse(await fetchMovieReviews(params.movieId));
     }
-    setCast();
-  }, [params.filmId]);
+    setReviews();
+  }, [params.movieId]);
 
   const { results } = response;
   return (
@@ -23,11 +23,11 @@ const Cast = () => {
             {content}
           </li>
         ))}
-      {response && !results.length && (
+      {response?.results?.length === 0 && (
         <div>Sorry but there are no reviews yet</div>
       )}
     </>
   );
 };
 
-export default Cast;
+export default Reviews;

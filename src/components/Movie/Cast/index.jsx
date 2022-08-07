@@ -1,4 +1,4 @@
-import { fetchFilmCast } from 'services/api';
+import { fetchMovieCast } from 'services/api';
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import styles from './cast.module.css';
@@ -8,10 +8,10 @@ const Cast = () => {
   let params = useParams();
   useEffect(() => {
     async function setCast() {
-      setResponse(await fetchFilmCast(params.filmId));
+      setResponse(await fetchMovieCast(params.movieId));
     }
     setCast();
-  }, [params.filmId]);
+  }, [params.movieId]);
 
   const { cast } = response;
   return (

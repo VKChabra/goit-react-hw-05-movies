@@ -1,12 +1,13 @@
 import { Link, Outlet, useLocation } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
-const MoviesList = ({ films }) => {
+const MoviesList = ({ movies }) => {
   const location = useLocation();
   return (
     <>
-      <ul className="moviesList">
-        {films &&
-          films.map(({ id, title }) => (
+      {movies && (
+        <ul className="moviesList">
+          {movies.map(({ id, title }) => (
             <li key={id}>
               <Link
                 to={`/movies/${id}`}
@@ -18,10 +19,28 @@ const MoviesList = ({ films }) => {
               </Link>
             </li>
           ))}
-        <Outlet />
-      </ul>
+        </ul>
+      )}
+      <Outlet />
+      {movies?.length === 0 && location.search !== '?query=' && (
+        <div>Sorry, there are no results</div>
+      )}
     </>
   );
+};
+
+MoviesList.propTypes = {
+  movies: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      title: PropTypes.string.isRequired,
+      genre_ids: PropTypes.arrayOf(PropTypes.number).isRequired,
+      overview: PropTypes.string,
+      poster_path: PropTypes.string,
+      release_date: PropTypes.string,
+      vote_average: PropTypes.number,
+    })
+  ),
 };
 
 export default MoviesList;
